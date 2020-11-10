@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ChatBot from 'react-simple-chatbot';
 import './Chat.css'
+import {alertasVomito,alertasDiarrea,alertasApetito,alertasFatiga,alertasFiebre,alertasOrinar,alertasSangrado,} from './Questions'
 
 
 class Review extends Component {
@@ -20,9 +21,9 @@ class Review extends Component {
   }
   componentDidMount() {
     const { steps } = this.props;
-    const { p1options } = steps;
+    const { p1Aoptions } = steps;
     localStorage.setItem("datos", JSON.stringify(steps));
-    console.log(p1options.message)
+    console.log(p1Aoptions)
     this.props.history.push('/Alert')
     
   }
@@ -49,7 +50,13 @@ Review.defaultProps = {
 
 class Chat extends Component {
 
+
   data = [
+    {
+      id: 'init',
+      message: '->',
+      trigger: 'welcome',
+    },
     {
       id: 'welcome',
       message: 'Buenos días, espero que se encuentre bien hoy, vamos a iniciar con el registro de sus síntomas',
@@ -63,7 +70,7 @@ class Chat extends Component {
     {
       id: 'p1options',
       options: [
-        { value: 'amarillo', label: 'Nauseas', trigger: 'p2' },
+        { value: 'Nauseas', label: 'Nauseas', trigger: 'p2', metadata: alertasVomito[0].amarillonau },
         { value: 'Vomito', label: 'Vómito', trigger: 'p1A' },
         { value: 'No', label: 'Ninguno', trigger: 'p2' },
       ],
@@ -76,13 +83,13 @@ class Chat extends Component {
     {
       id: 'p1Aoptions',
       options: [
-        { value: "verde", label: '1', trigger: 'p2' },
-        { value: "verde", label: '2', trigger: 'p2' },
-        { value: "verde", label: '3', trigger: 'p2' },
-        { value: "amarillo", label: '4', trigger: 'p2' },
-        { value: "amarillo", label: '5', trigger: 'p2' },
-        { value: "amarillo", label: '6', trigger: 'p2' },
-        { value: "rojo", label: 'más de 6', trigger: 'p2' },
+        { value: 1, metadata: alertasVomito[0].verde, label: '1', trigger: 'p2' },
+        { value: 2, metadata: alertasVomito[0].verde, label: '2', trigger: 'p2' },
+        { value: 3, metadata: alertasVomito[0].verde, label: '3', trigger: 'p2' },
+        { value: 4, metadata: alertasVomito[0].amarillo, label: '4', trigger: 'p2' },
+        { value: 5, metadata: alertasVomito[0].amarillo, label: '5', trigger: 'p2' },
+        { value: 6, metadata: alertasVomito[0].amarillo, label: '6', trigger: 'p2' },
+        { value: 7, metadata: alertasVomito[0].rojo, label: 'más de 6', trigger: 'p2' },
       ],
     },
     {
@@ -99,20 +106,20 @@ class Chat extends Component {
     },
     {
       id: 'p2A',
-      message: '¿Número de deposiciones al día',
+      message: 'Número de deposiciones al día',
       trigger: 'p2Aoptions',
     },
     {
       id: 'p2Aoptions',
       options: [
-        { value: "verde", label: '1', trigger: 'p3' },
-        { value: "verde", label: '2', trigger: 'p3' },
-        { value: "verde", label: '3', trigger: 'p3' },
-        { value: "amarillo", label: '4', trigger: 'p3' },
-        { value: "amarillo", label: '5', trigger: 'p3' },
-        { value: "amarillo", label: '6', trigger: 'p3' },
-        { value: "amarillo", label: '7', trigger: 'p3' },
-        { value: "rojo", label: 'más de 8', trigger: 'p3' },
+        { value: 1, metadata: alertasDiarrea[0].verde, label: '1', trigger: 'p3' },
+        { value: 2, metadata: alertasDiarrea[0].verde, label: '2', trigger: 'p3' },
+        { value: 3, metadata: alertasDiarrea[0].verde, label: '3', trigger: 'p3' },
+        { value: 4, metadata: alertasDiarrea[0].amarillo, label: '4', trigger: 'p3' },
+        { value: 5, metadata: alertasDiarrea[0].amarillo, label: '5', trigger: 'p3' },
+        { value: 6, metadata: alertasDiarrea[0].amarillo, label: '6', trigger: 'p3' },
+        { value: 7, metadata: alertasDiarrea[0].amarillo, label: '7', trigger: 'p3' },
+        { value: 8, metadata: alertasDiarrea[0].rojo, label: 'más de 7', trigger: 'p3' },
       ],
     },
     {
@@ -135,11 +142,11 @@ class Chat extends Component {
     {
       id: 'p3Aoptions',
       options: [
-        { value: "rojo", label: '2 días con una alimentación al día', trigger: 'p4' },
-        { value: "amarillo", label: '2 veces', trigger: 'p4' },
-        { value: "amarillo", label: '3 veces', trigger: 'p4' },
-        { value: "verde", label: '4 veces', trigger: 'p4' },
-        { value: "verde", label: '5 veces', trigger: 'p4' },
+        { value: 1, metadata: alertasApetito[0].rojo, label: '2 días con una alimentación al día', trigger: 'p4' },
+        { value: 2, metadata: alertasApetito[0].amarillo, label: '2 veces', trigger: 'p4' },
+        { value: 3, metadata: alertasApetito[0].amarillo3, label: '3 veces', trigger: 'p4' },
+        { value: 4, metadata: alertasApetito[0].verde, label: '4 veces', trigger: 'p4' },
+        { value: 5, metadata: alertasApetito[0].verde, label: '5 veces', trigger: 'p4' },
       ],
     },
     {
@@ -162,8 +169,8 @@ class Chat extends Component {
     {
       id: 'p4Aoptions',
       options: [
-        { value: "verde", label: 'De 18 a 24 RPM', trigger: 'p5' },
-        { value: "rojo", label: 'Más de 24 RPM', trigger: 'p5' },
+        { value: 'De 18 a 24 RPM', metadata: alertasFatiga[0].verde, label: 'De 18 a 24 RPM', trigger: 'p5' },
+        { value: 'Más de 24 RPM', metadata: alertasFatiga[0].rojo, label: 'Más de 24 RPM', trigger: 'p5' },
       ],
     },
     {
@@ -186,8 +193,8 @@ class Chat extends Component {
     {
       id: 'p5Aoptions',
       options: [
-        { value: "verde", label: 'Menos de 38º', trigger: 'p6' },
-        { value: "rojo", label: '38º o más', trigger: 'p6' },
+        { value: 'Menos de 38º', metadata: alertasFiebre[0].verde, label: 'Menos de 38º', trigger: 'p6' },
+        { value: '38º o más', metadata: alertasFiebre[0].rojo, label: '38º o más', trigger: 'p6' },
       ],
     },
     {
@@ -210,16 +217,16 @@ class Chat extends Component {
     {
       id: 'p6Aoptions',
       options: [
-        { value: "amarillo", label: '1', trigger: 'p7' },
-        { value: "amarillo", label: '2', trigger: 'p7' },
-        { value: "amarillo", label: '3', trigger: 'p7' },
-        { value: "amarillo", label: '4', trigger: 'p7' },
-        { value: "amarillo", label: '5', trigger: 'p7' },
-        { value: "amarillo", label: '6', trigger: 'p7' },
-        { value: "rojo", label: '7', trigger: 'p7' },
-        { value: "rojo", label: '8', trigger: 'p7' },
-        { value: "rojo", label: '9', trigger: 'p7' },
-        { value: "rojo", label: '10', trigger: 'p7' },
+        { value: 1, metadata: alertasOrinar[0].amarillo, label: '1', trigger: 'p7' },
+        { value: 2, metadata: alertasOrinar[0].amarillo, label: '2', trigger: 'p7' },
+        { value: 3, metadata: alertasOrinar[0].amarillo, label: '3', trigger: 'p7' },
+        { value: 4, metadata: alertasOrinar[0].amarillo, label: '4', trigger: 'p7' },
+        { value: 5, metadata: alertasOrinar[0].amarillo, label: '5', trigger: 'p7' },
+        { value: 6, metadata: alertasOrinar[0].amarillo, label: '6', trigger: 'p7' },
+        { value: 7, metadata: alertasOrinar[0].amarillonaranja, label: '7', trigger: 'p7' },
+        { value: 8, metadata: alertasOrinar[0].amarillonaranja, label: '8', trigger: 'p7' },
+        { value: 9, metadata: alertasOrinar[0].amarillonaranja, label: '9', trigger: 'p7' },
+        { value: 10, metadata: alertasOrinar[0].amarillonaranja, label: '10', trigger: 'p7' },
       ],
     },
     {
@@ -242,26 +249,30 @@ class Chat extends Component {
     {
       id: 'p7Aoptions',
       options: [
-        { value: "verde", label: '1 vez', trigger: 'final' },
-        { value: "amarillo", label: '2 veces', trigger: 'final' },
-        { value: "amarillo", label: '3 veces', trigger: 'final' },
-        { value: "amarillo", label: '4 veces', trigger: 'final' },
-        { value: "rojo", label: '5 o más veces', trigger: 'final' },
+        { value: 1, metadata: alertasSangrado[0].verde, label: '1 vez', trigger: 'final' },
+        { value: 2, metadata: alertasSangrado[0].amarillo, label: '2 veces', trigger: 'final' },
+        { value: 3, metadata: alertasSangrado[0].amarillo, label: '3 veces', trigger: 'final' },
+        { value: 4, metadata: alertasSangrado[0].amarillo, label: '4 veces', trigger: 'final' },
+        { value: 5, metadata: alertasSangrado[0].rojo, label: '5 o más veces', trigger: 'final' },
       ],
     },
     
-
+    {
+      id: 'final',
+      message: 'A continuación se le mostrarán las recomendaciones pertinentes',
+      trigger: 'submit',
+    },
 
 
     {
-      id: 'final',
+      id: 'submit',
       component: <Review history={this.props.history}/>,
       asMessage: true,
       trigger: 'end-message',
     },
     {
       id: 'end-message',
-      message: 'A continuación se le mostrarán las recomendaciones pertinentes',
+      message: 'El análisis ha terminado',
       end: true,
     },
   ]
@@ -271,6 +282,7 @@ class Chat extends Component {
     return (
       <div className="o-container">
         <ChatBot
+          speechSynthesis={{ enable: true, lang: 'es' }}
           steps={this.data}
         />
         
