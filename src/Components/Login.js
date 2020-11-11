@@ -8,9 +8,10 @@ class Login extends React.Component {
     constructor (props, context){
         super(props, context);
 
+
         // Prepare simple state
         this.state = {
-            value:""
+            value:"",
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -30,7 +31,8 @@ class Login extends React.Component {
             const state = snapshot.val();
             console.log(state)
             if(state != null){
-                alert("Sesion correcta")
+                localStorage.setItem("identificationNumber", this.state.value)
+                this.props.history.push("/Chat");
             }
             else{
                 alert("Lo sentimos, El número de identificación ingresado no existe en nuestra base de datos");
@@ -39,6 +41,15 @@ class Login extends React.Component {
         });
     }
 
+    json={
+        "09-11-2020": {
+            Diarrea: {
+                Respuesta: "no",
+                Intensidad:"0",
+                Alerta: "verde",
+            }
+        }
+    }
 
     render(){
         return (

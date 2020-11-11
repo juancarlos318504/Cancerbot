@@ -15,16 +15,15 @@ class Review extends Component {
     };
   }
 
-  componentWillMount() {
-    
-    //this.setState({ name, gender, age });
-  }
+  
   componentDidMount() {
-    const { steps } = this.props;
-    const { p1Aoptions } = steps;
-    localStorage.setItem("datos", JSON.stringify(steps));
-    console.log(p1Aoptions)
-    this.props.history.push('/Alert')
+    setTimeout(() => { 
+      const { steps } = this.props;
+      console.log("cambiando ruta");
+      localStorage.setItem("datos", JSON.stringify(steps));
+      //console.log(p1Aoptions)
+      this.props.history.push('/Alerta')
+     }, 1500);
     
   }
 
@@ -52,11 +51,11 @@ class Chat extends Component {
 
 
   data = [
-    {
+    /*{
       id: 'init',
       message: '->',
       trigger: 'welcome',
-    },
+    },*/
     {
       id: 'welcome',
       message: 'Buenos días, espero que se encuentre bien hoy, vamos a iniciar con el registro de sus síntomas',
@@ -267,24 +266,31 @@ class Chat extends Component {
     {
       id: 'submit',
       component: <Review history={this.props.history}/>,
-      asMessage: true,
-      trigger: 'end-message',
+      //message: "El análisis ha terminado",
+      trigger: ()=>console.log("Terminadooooo"),
+      end: true
     },
-    {
+    /*{
       id: 'end-message',
       message: 'El análisis ha terminado',
       end: true,
-    },
+    },*/
   ]
 
 
   render() {
     return (
       <div className="o-container">
-        <ChatBot
-          speechSynthesis={{ enable: true, lang: 'es' }}
-          steps={this.data}
-        />
+        <h2>REGISTRO DE SÍNTOMAS</h2>
+        <div style={{width:"90%", display:"flex", justifyContent:"center"}}>
+          <ChatBot
+            speechSynthesis={{ enable: true, lang: 'es' }}
+            steps={this.data}
+            headerTitle="CANCERBOT"
+            placeholder="Selecciona tu respuesta"
+          />
+        </div>
+        
         
       </div>
 
