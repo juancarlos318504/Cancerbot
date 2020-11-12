@@ -7,8 +7,8 @@ import {alertasVomito,alertasDiarrea,alertasApetito,alertasFatiga,alertasFiebre,
 
 
 class Review extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.state = {
       r1: '',
@@ -17,13 +17,10 @@ class Review extends Component {
 
   
   componentDidMount() {
-    setTimeout(() => { 
+    //setTimeout(() => { 
       const { steps } = this.props;
-      console.log("cambiando ruta");
+      //console.log("pasos comp: "+JSON.stringify(steps));
       localStorage.setItem("datos", JSON.stringify(steps));
-      //console.log(p1Aoptions)
-      this.props.history.push('/Alerta')
-     }, 1500);
     
   }
 
@@ -69,7 +66,7 @@ class Chat extends Component {
     {
       id: 'p1options',
       options: [
-        { value: 'Nauseas', label: 'Nauseas', trigger: 'p2', metadata: alertasVomito[0].amarillonau },
+        { value: 'Nauseas', label: 'Náuseas', trigger: 'p2', metadata: alertasVomito[0].amarillonau },
         { value: 'Vomito', label: 'Vómito', trigger: 'p1A' },
         { value: 'No', label: 'Ninguno', trigger: 'p2' },
       ],
@@ -265,18 +262,28 @@ class Chat extends Component {
 
     {
       id: 'submit',
-      component: <Review history={this.props.history}/>,
+      component: <Review/>,
       //message: "El análisis ha terminado",
-      trigger: ()=>console.log("Terminadooooo"),
-      end: true
+      //end: true
+      trigger: 'end-message',
     },
-    /*{
+    {
       id: 'end-message',
       message: 'El análisis ha terminado',
       end: true,
-    },*/
+    },
   ]
 
+
+  onEndChat(){
+    //setTimeout(() => { 
+      //const { renderedSteps, steps, values} = data;
+      console.log("cambiando ruta");
+      //localStorage.setItem("datos", JSON.stringify(renderedSteps));
+      //console.log(p1Aoptions)
+      this.props.history.push('/Alerta')
+     //}, 1500);
+  }
 
   render() {
     return (
@@ -288,6 +295,7 @@ class Chat extends Component {
             steps={this.data}
             headerTitle="CANCERBOT"
             placeholder="Selecciona tu respuesta"
+            handleEnd={this.onEndChat.bind(this)}
           />
         </div>
         

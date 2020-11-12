@@ -41,16 +41,6 @@ class Login extends React.Component {
         });
     }
 
-    json={
-        "09-11-2020": {
-            Diarrea: {
-                Respuesta: "no",
-                Intensidad:"0",
-                Alerta: "verde",
-            }
-        }
-    }
-
     render(){
         return (
             <div className="o-login-container">

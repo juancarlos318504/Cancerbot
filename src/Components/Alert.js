@@ -5,8 +5,8 @@ import exclamacion from '../Images/exclamacion.png';
 
 class Alert extends React.Component {
 
-    constructor (props, context){
-        super(props, context);
+    constructor (props){
+        super(props);
         
         this.state = {
             ready: false,
@@ -14,7 +14,7 @@ class Alert extends React.Component {
             AlertText:""
         };
 
-        this.getAlert = this.getAlert.bind(this);
+        //this.getAlert = this.getAlert.bind(this);
     }
 
     alert = <div>hola</div>
@@ -23,7 +23,8 @@ class Alert extends React.Component {
     mensaje2= "";
 
     componentDidMount(){
-        setTimeout(() => {this.getAlert();}, 1500);
+
+        setTimeout(this.getAlert(), 1500);
         
     }
 
@@ -174,8 +175,7 @@ class Alert extends React.Component {
 
                         <button onClick={()=>this.props.history.push('/')} className="o-salida-button">SALIDA</button>
                     </div>
-                    
-                    
+ 
                 </div>
 
                 this.setState({ready:true});
@@ -194,8 +194,10 @@ class Alert extends React.Component {
                     
                 </div>
             );
+        }else{
+            return (this.alert);
         }
-        return (this.alert);
+        
     }
 };
 
